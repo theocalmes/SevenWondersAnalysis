@@ -1,0 +1,35 @@
+
+my_hand = []
+left_neighbor_hand = []
+right_neighbor_hand = []
+
+
+class 
+
+## for each person we need the following state:
+# cards in play
+# coins
+# wonder (including stages of wonder built)
+# military tokens
+
+
+On a given turn, you have a set of resourcres sets you can use to pay for a card
+set1: { resources: ["wood". "stone", "glass"], total_cost: 2, neighbor_benefits: { left: 1, right: 2 } }
+set2: { resources: ["wood". "stone", "glass"], total_cost: 2, neighbor_benefits: { left: 2, right: 1 } }
+
+set1: { resources: ["wood". "stone", "glass"], total_cost: 3, pay_to_left: 1, pay_to_right: 2 },
+set1: { resources: ["wood". "stone", "glass"], total_cost: 3, pay_to_left: 2, pay_to_right: 1 }
+
+["wood", "stone", "paper"],
+["wood"]
+
+
+For the cards in your hand, which ones on can you buy, and what is the cost? Also, which neighbor gets money?
+
+list of possible transactions:
+{
+	card 1 => [Tx1],
+	card 3 => [tx1, tx2]
+	
+	
+}
