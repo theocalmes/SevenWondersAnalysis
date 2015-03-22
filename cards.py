@@ -1,5 +1,6 @@
 
-def contains(a, b):
+# returns whether 'a' is a subset of 'b'
+def is_contained_in(a, b):
 	b_copy = list(b)
 	for x in a:
 		if x in b:
@@ -11,13 +12,10 @@ def contains(a, b):
 class CardAbstract(object):
 	def __init__(self, name):
 		self.name = name
-		self.gold_cost = 0
+		self.coin_cost = 0
 		self.resource_cost = []
 		self.free_with = []
-		
-	def can_buy(resources, gold):
-		return contains(self.resource_cost, resources) and self.gold_cost <= gold
-	
+
 	def is_free_with(self, cards):
 		for card in cards:
 			if card.name in self.free_with:
@@ -35,6 +33,8 @@ class Resource(object):
 		self.type = type
 	def __repr__(self):
 		return self.type
+	def __eq__(self, other):
+		return self.type == other.type
 
 class VictoryPoint(object):
 	def __init__(self, amount):
@@ -55,15 +55,15 @@ class MilitaryStrength(object):
 		return "Strength: %s" % (self.amount,)
 
 class ResourceCardAbstract(CardAbstract):
-	def __init__(self, name, resources, gold_cost):
+	def __init__(self, name, resources, coin_cost):
 		self.name = name
-		self.gold_cost = gold_cost
+		self.coin_cost = coin_cost
 		self.resources = resources
 		super(ResourceCardAbstract, self).__init__(name)
 		
 	def reward(self):
 		return self.resources
-		
+
 class RawMaterial(ResourceCardAbstract):
 	pass
 	
@@ -93,6 +93,7 @@ class ScientificStructure(CardAbstract):
 					
 		self.name = name
 		self.resource_cost = resources_cost
+		self.coin_cost = 0
 		self.science = science
 		
 	def reward(self):
@@ -107,21 +108,17 @@ class MilitaryStructure(CardAbstract):
 
 		self.name = name
 		self.resource_cost = resources_cost
+		self.coin_cost = 0
 		self.strength = strength
 
 	def reward(self):
 		return self.strength
 
-timber_yard = RawMaterial("Timber Yard", [Resource("wood"), Resource("stone")], 1)
-pawn_shop = CivilianStructure("Baths", [], 3)
-aquaduct = CivilianStructure("Aquaduct", [], 5, free_with=["Baths"])
-laboratory = ScientificStructure("Laboratory", [Resource("clay"), Resource("clay"), Resource("paper")], Science("gear"), free_with=["Workshop"])
+if __name__ == "__main__":
+	timber_yard = RawMaterial("Timber Yard", [Resource("wood"), Resource("stone")], 1)
+	pawn_shop = CivilianStructure("Baths", [], 3)
+	aquaduct = CivilianStructure("Aquaduct", [], 5, free_with=["Baths"])
+	laboratory = ScientificStructure("Laboratory", [Resource("clay"), Resource("clay"), Resource("paper")], Science("gear"), free_with=["Workshop"])
 
-
-cards = [timber_yard, pawn_shop, aquaduct]
-
-
-print 'is it free? %s' % (laboratory.is_free_with(cards), )
-
-for card in cards:
-	print card.reward()
+	cards = [timber_yard, pawn_shop, aquaduct]
+	print 'is it free? %s' % (laboratory.is_free_with(cards), )
