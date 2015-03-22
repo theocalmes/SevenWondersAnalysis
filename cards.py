@@ -48,6 +48,12 @@ class Science(object):
 	def __repr__(self):
 		return self.type
 
+class MilitaryStrength(object):
+	def __init__(self, amount):
+		self.amount = amount
+	def __repr__(self):
+		return "Strength: %s" % (self.amount,)
+
 class ResourceCardAbstract(CardAbstract):
 	def __init__(self, name, resources, gold_cost):
 		self.name = name
@@ -91,7 +97,20 @@ class ScientificStructure(CardAbstract):
 		
 	def reward(self):
 		return self.science
-		
+
+class MilitaryStructure(CardAbstract):
+	def __init__(self, name, resources_cost, strength, free_with=None):
+		if free_with is None:
+			self.free_with = []
+		else:
+			self.free_with = free_with
+
+		self.name = name
+		self.resource_cost = resources_cost
+		self.strength = strength
+
+	def reward(self):
+		return self.strength
 
 timber_yard = RawMaterial("Timber Yard", [Resource("wood"), Resource("stone")], 1)
 pawn_shop = CivilianStructure("Baths", [], 3)
