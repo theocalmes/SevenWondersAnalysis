@@ -36,6 +36,15 @@ class Resource(object):
 	def __eq__(self, other):
 		return self.type == other.type
 
+class MultiResource(object):
+	pass
+
+class ManufacturedGoodMultiResource(MultiResource):
+	pass
+
+class RawMaterialMultiResource(MultiResource):
+	pass
+
 class VictoryPoint(object):
 	def __init__(self, amount):
 		self.amount = amount
@@ -113,6 +122,10 @@ class MilitaryStructure(CardAbstract):
 
 	def reward(self):
 		return self.strength
+
+class CommercialStructure(CardAbstract):
+	def __init__(self, name, resource_cost):
+		pass
 
 if __name__ == "__main__":
 	timber_yard = RawMaterial("Timber Yard", [Resource("wood"), Resource("stone")], 1)
